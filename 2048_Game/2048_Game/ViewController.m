@@ -61,22 +61,41 @@ UILabel *labels[4][4];
                 return false;
         }
     }
+    _upButton.enabled = false;
+    _downButton.enabled = false;
+    _leftButton.enabled = false;
+    _rightButton.enabled = false;
+    NSLog(@"You Lose!");
     return true;
 }
 
 -(bool)winningBoard{
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 4; j++){
-            if(game[i][j] == 2048)
+            if(game[i][j] == 2048){
+                _upButton.enabled = false;
+                _downButton.enabled = false;
+                _leftButton.enabled = false;
+                _rightButton.enabled = false;
+                NSLog(@"You Win!");
                 return true;
+            }
         }
     }
     return false;
 }
 
 -(void)generate2{
+    bool hasZero = false;
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++){
+            if(game[i][j] == 0){
+                hasZero = true;
+            }
+        }
+    }
     srand((unsigned int)time(NULL));
-    while(true){
+    while(hasZero){
         int i = rand() % 4;
         int j = rand() % 4;
         if(game[i][j] == 0){
@@ -188,7 +207,6 @@ UILabel *labels[4][4];
     }
 }
 - (IBAction)startGame:(id)sender {
-    NSLog(@"Works!");
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 4; j++){
             game[i][j] = 0;
@@ -213,39 +231,45 @@ UILabel *labels[4][4];
     [self generate2];
     [self generate2];
     [self updateBoard];
-    NSLog(@"All Works!");
 }
 
 - (IBAction)pressUp:(id)sender {
-    [self moveUp];
-    [self combineUp];
-    [self moveUp];
-    [self generate2];
-    [self updateBoard];
+    if(![self winningBoard] && ![self losingBoard]){
+        [self moveUp];
+        [self combineUp];
+        [self moveUp];
+        [self generate2];
+        [self updateBoard];
+    }
 }
 
 - (IBAction)pressLeft:(id)sender {
-    [self moveLeft];
-    [self combineLeft];
-    [self moveLeft];
-    [self generate2];
-    [self updateBoard];
+    if(![self winningBoard] && ![self losingBoard]){
+        [self moveLeft];
+        [self combineLeft];
+        [self generate2];
+        [self updateBoard];
+    }
 }
 
 - (IBAction)pressDown:(id)sender {
-    [self moveDown];
-    [self combineDown];
-    [self moveDown];
-    [self generate2];
-    [self updateBoard];
+    if(![self winningBoard] && ![self losingBoard]){
+        [self moveDown];
+        [self combineDown];
+        [self moveDown];
+        [self generate2];
+        [self updateBoard];
+    }
 }
 
 - (IBAction)pressRight:(id)sender {
-    [self moveRight];
-    [self combineRight];
-    [self moveRight];
-    [self generate2];
-    [self updateBoard];
+    if(![self winningBoard] && ![self losingBoard]){
+        [self moveRight];
+        [self combineRight];
+        [self moveRight];
+        [self generate2];
+        [self updateBoard];
+    }
 }
 
 @end
