@@ -12,15 +12,10 @@
 @end
 
 @implementation ViewController
-/*
-NSArray *game = @[@[@1, @2, @3, @4],
-                  @[@1, @2, @3, @4],
-                  @[@1, @2, @3, @4],
-                  @[@1, @2, @3, @4],
-                ];
-*/
 
-float game[4][4];
+int game[4][4];
+
+UILabel *labels[4][4];
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,7 +29,13 @@ float game[4][4];
 }
 
 -(void)updateBoard{
-    
+    NSString * temp;
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++){
+            temp = [NSString stringWithFormat:@"%d", game[i][j]];
+            labels[i][j].text = temp;
+        }
+    }
 }
 
 -(bool)losingBoard{
@@ -74,13 +75,13 @@ float game[4][4];
 }
 
 -(void)generate2{
-    srand(time(NULL));
+    srand((unsigned int)time(NULL));
     while(true){
         int i = rand() % 4;
         int j = rand() % 4;
         if(game[i][j] == 0){
             game[i][j] = 2;
-            return;
+            break;
         }
     }
 }
@@ -187,10 +188,32 @@ float game[4][4];
     }
 }
 - (IBAction)startGame:(id)sender {
-    self.view.backgroundColor = [UIColor blueColor];
+    NSLog(@"Works!");
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++){
+            game[i][j] = 0;
+        }
+    }
+    labels[0][0] = [self.view viewWithTag:1];
+    labels[0][1] = [self.view viewWithTag:2];
+    labels[0][2] = [self.view viewWithTag:3];
+    labels[0][3] = [self.view viewWithTag:4];
+    labels[1][0] = [self.view viewWithTag:5];
+    labels[1][1] = [self.view viewWithTag:6];
+    labels[1][2] = [self.view viewWithTag:7];
+    labels[1][3] = [self.view viewWithTag:8];
+    labels[2][0] = [self.view viewWithTag:9];
+    labels[2][1] = [self.view viewWithTag:10];
+    labels[2][2] = [self.view viewWithTag:11];
+    labels[2][3] = [self.view viewWithTag:12];
+    labels[3][0] = [self.view viewWithTag:13];
+    labels[3][1] = [self.view viewWithTag:14];
+    labels[3][2] = [self.view viewWithTag:15];
+    labels[3][3] = [self.view viewWithTag:16];
     [self generate2];
     [self generate2];
     [self updateBoard];
+    NSLog(@"All Works!");
 }
 
 - (IBAction)pressUp:(id)sender {
