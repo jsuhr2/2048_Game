@@ -14,6 +14,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *leftButton;
 @property (weak, nonatomic) IBOutlet UIButton *downButton;
 @property (weak, nonatomic) IBOutlet UIButton *rightButton;
+@property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *upSwipe;
+@property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *downSwipe;
+@property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *leftSwipe;
+@property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *rightSwipe;
 
 @end
 

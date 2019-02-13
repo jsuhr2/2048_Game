@@ -20,6 +20,31 @@ UILabel *labels[4][4];
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    [_upSwipe setDirection:UISwipeGestureRecognizerDirectionUp];
+    [_downSwipe setDirection:UISwipeGestureRecognizerDirectionDown];
+    [_leftSwipe setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [_rightSwipe setDirection:UISwipeGestureRecognizerDirectionRight];
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++){
+            game[i][j] = 0;
+        }
+    }
+    labels[0][0] = [self.view viewWithTag:1];
+    labels[0][1] = [self.view viewWithTag:2];
+    labels[0][2] = [self.view viewWithTag:3];
+    labels[0][3] = [self.view viewWithTag:4];
+    labels[1][0] = [self.view viewWithTag:5];
+    labels[1][1] = [self.view viewWithTag:6];
+    labels[1][2] = [self.view viewWithTag:7];
+    labels[1][3] = [self.view viewWithTag:8];
+    labels[2][0] = [self.view viewWithTag:9];
+    labels[2][1] = [self.view viewWithTag:10];
+    labels[2][2] = [self.view viewWithTag:11];
+    labels[2][3] = [self.view viewWithTag:12];
+    labels[3][0] = [self.view viewWithTag:13];
+    labels[3][1] = [self.view viewWithTag:14];
+    labels[3][2] = [self.view viewWithTag:15];
+    labels[3][3] = [self.view viewWithTag:16];
 }
 
 
@@ -207,33 +232,12 @@ UILabel *labels[4][4];
     }
 }
 - (IBAction)startGame:(id)sender {
-    for(int i = 0; i < 4; i++){
-        for(int j = 0; j < 4; j++){
-            game[i][j] = 0;
-        }
-    }
-    labels[0][0] = [self.view viewWithTag:1];
-    labels[0][1] = [self.view viewWithTag:2];
-    labels[0][2] = [self.view viewWithTag:3];
-    labels[0][3] = [self.view viewWithTag:4];
-    labels[1][0] = [self.view viewWithTag:5];
-    labels[1][1] = [self.view viewWithTag:6];
-    labels[1][2] = [self.view viewWithTag:7];
-    labels[1][3] = [self.view viewWithTag:8];
-    labels[2][0] = [self.view viewWithTag:9];
-    labels[2][1] = [self.view viewWithTag:10];
-    labels[2][2] = [self.view viewWithTag:11];
-    labels[2][3] = [self.view viewWithTag:12];
-    labels[3][0] = [self.view viewWithTag:13];
-    labels[3][1] = [self.view viewWithTag:14];
-    labels[3][2] = [self.view viewWithTag:15];
-    labels[3][3] = [self.view viewWithTag:16];
     [self generate2];
     [self generate2];
     [self updateBoard];
 }
 
-- (IBAction)pressUp:(id)sender {
+- (IBAction)swipeUp:(id)sender {
     if(![self winningBoard] && ![self losingBoard]){
         [self moveUp];
         [self combineUp];
@@ -242,17 +246,7 @@ UILabel *labels[4][4];
         [self updateBoard];
     }
 }
-
-- (IBAction)pressLeft:(id)sender {
-    if(![self winningBoard] && ![self losingBoard]){
-        [self moveLeft];
-        [self combineLeft];
-        [self generate2];
-        [self updateBoard];
-    }
-}
-
-- (IBAction)pressDown:(id)sender {
+- (IBAction)swipeDown:(id)sender {
     if(![self winningBoard] && ![self losingBoard]){
         [self moveDown];
         [self combineDown];
@@ -261,8 +255,15 @@ UILabel *labels[4][4];
         [self updateBoard];
     }
 }
-
-- (IBAction)pressRight:(id)sender {
+- (IBAction)swipeLeft:(id)sender {
+    if(![self winningBoard] && ![self losingBoard]){
+        [self moveLeft];
+        [self combineLeft];
+        [self generate2];
+        [self updateBoard];
+    }
+}
+- (IBAction)swipeRight:(id)sender {
     if(![self winningBoard] && ![self losingBoard]){
         [self moveRight];
         [self combineRight];
@@ -271,6 +272,8 @@ UILabel *labels[4][4];
         [self updateBoard];
     }
 }
+
+
 
 @end
 
